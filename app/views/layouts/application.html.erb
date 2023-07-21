@@ -5,27 +5,83 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/faaaeec062.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-  <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-      </li>
-      
-    <% else %>
-      <li>
-        <%= link_to "Sign up", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "Log in", new_user_session_path %>
-      </li>
-    <% end %>
-  </header>
-    <%= yield %>
+<body>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <span>Bookers</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+
+        <a class = "nav-link text-light" href = '<%= "/users/#{current_user.id}" %>' >
+          <i class = "fas fa-home" aria-hidden = "true" ></i>
+          Home
+        </a>
+
+        <a class = "nav-link text-light" href = "/users" >
+          <i class = "fas fa-users" aria-hidden = "true" ></i>
+          Users
+        </a>
+
+        <a class = "nav-link text-light" href = "/books">
+          <i class = "fas fa-book-open" aria-hidden = "true" ></i>
+          Books
+        </a>
+
+        <a class = "nav-link text-light" data-method = "delete" href = "/users/sign_out" >
+          <i class = "fas fa-sign-out-alt" aria-hidden = "true" ></i>
+          Log out
+        </a>
+
+        <% else %>
+        <a class = "nav-link text-light" href = "/" >
+          <i class = "fas fa-home" aria-hidden = "true" ></i>
+          Home
+        </a>
+
+        <a class = "nav-link text-light" href = "/home/about" >
+          <i class = "fas fa-link" aria-hidden = "true" ></i>
+          About
+        </a>
+
+        <a class = "nav-link text-light" href = "/users/sign_up" >
+          <i class = "fas fa-user-plus" aria-hidden = "true"></i>
+          Sign up
+        </a>
+
+        <a class = "nav-link text-light" href = "/users/sign_in" >
+          <i class = "fas fa-sign-in-alt" aria-hidden = "true" ></i>
+          Log in
+        </a>
+
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <%= yield %>
+
+  <footer>
+    <div class >
+      <a>CopyRight infratop.inc</a>
+    </div>
+  </footer>
+
   </body>
 </html>

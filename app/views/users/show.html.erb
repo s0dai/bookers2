@@ -1,12 +1,6 @@
-<% if @book.errors.any? %>
-  <%= pluralize(@book.errors.count, "error") %> prohibited this obj from being saved:
-  <ul>
-    <% @book.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
+<div>
+  <%= flash[:notice] %>
+</div>
 
 <div class="container">
   <div class="row">
@@ -14,23 +8,28 @@
 <div class = "col-md-3" >
 <div>
   <h1>User info</h1>
-  <%= image_tag current_user.get_profile_image(100,100) %>
+  <%= image_tag @user.get_profile_image(100,100) %>
 
 <table class="table table-striped">
   <tr>
     <th>name</th>
-    <th><%= current_user.name %></th>
+    <th><%= @user.name %></th>
   </tr>
   <tr>
     <th>introduction</th>
-    <th><%= current_user.introduction %></th>
+    <th><%= @user.introduction %></th>
   </tr>
 </table>
 
-<a class = "btn btn-outline-secondary" href = '<%= "/users/#{current_user.id}/edit" %>' >
-  <i class="fas fa-user-cog" aria-hidden="true" ></i>
-</a>
-
+  <% if @user == current_user %>
+    <a class = "btn btn-outline-secondary" href ='<%= "/users/#{current_user.id}/edit" %>' >
+      <i class="fas fa-user-cog" aria-hidden="true" ></i>
+    </a>
+  <% else %>
+    <a class = "btn btn-outline-secondary" href ='<%= "/users/#{@user.id}/edit" %>' >
+      <i class="fas fa-user-cog" aria-hidden="true" ></i>
+    </a>
+  <% end %>
 </div>
 
 <h1>New book</h1>
@@ -45,28 +44,25 @@
   <br>
   <%= f.submit 'Create Book', class: "btn btn-success" %>
 <% end %>
-
 </div>
 
 <div class = "col-md-8 offset-md-1" >
 
-
 <h1>Books</h1>
 
 <table class="table table-striped">
-<thead>
- <tr>
-   <th>　</th>
-   <th>Tite</th>
-   <th>Opinion</th>
- </tr>
-</thead>
 
-<tbody>
+  <tr>
+    <th>　</th>
+    <th>Tite</th>
+    <th>Opinion</th>
+  </tr>
+
   <% @books.each do |book| %>
   <tr>
-    <td>
-      <%= link_to user_path(book.user) do %>
+    
+  　<td>
+  　   <%= link_to user_path(book.user) do %>
         <%= image_tag book.user.get_profile_image(100,100) %>
       <% end %>
     </td>
@@ -78,9 +74,8 @@
     <td><%= book.body %></td>
   </tr>
   <% end %>
-</tbody>
-</table>
 
+</table>
 
 </div>
 
